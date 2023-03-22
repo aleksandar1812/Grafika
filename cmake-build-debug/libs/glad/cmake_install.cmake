@@ -1,4 +1,4 @@
-# Install script for directory: /home/matf-racunarska-grafika/Desktop/Projekat/project_base/libs/glad
+# Install script for directory: /home/matf-racunarska-grafika/Desktop/ProjekatRG/libs/glad
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
