@@ -233,8 +233,11 @@ int main() {
    unsigned int cubemapTexture = loadCubemap(faces);
     // load models
     // -----------
-    Model ourModel("resources/objects/backpack/backpack.obj");
-    ourModel.SetShaderTextureNamePrefix("material.");
+    Model Grifin("resources/objects/Obejkti/Greif_C/Greif_C.obj");
+    Grifin.SetShaderTextureNamePrefix("material.");
+
+    Model Wand("resources/objects/Obejkti/Wand/Wandschmuck03_C.obj");
+    Wand.SetShaderTextureNamePrefix("material.");
 
     PointLight& pointLight = programState->pointLight;
     pointLight.position = glm::vec3(4.0f, 4.0, 0.0);
@@ -274,7 +277,7 @@ int main() {
 
         // don't forget to enable shader before setting uniforms
         ourShader.use();
-        pointLight.position = glm::vec3(4.0 * cos(currentFrame), 4.0f, 4.0 * sin(currentFrame));
+        pointLight.position = glm::vec3(4.0 , 4.0f, 4.0 );
         ourShader.setVec3("pointLight.position", pointLight.position);
         ourShader.setVec3("pointLight.ambient", pointLight.ambient);
         ourShader.setVec3("pointLight.diffuse", pointLight.diffuse);
@@ -296,10 +299,22 @@ int main() {
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model,
                                programState->backpackPosition); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(programState->backpackScale));    // it's a bit too big for our scene, so scale it down
+        model = glm::scale(model, glm::vec3(1.0f,1.0f,1.0f));    // it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
-        ourModel.Draw(ourShader);
+        Grifin.Draw(ourShader);
 
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+
+        model = glm::mat4(1.0f);
+        model = glm::translate(model,
+                               glm::vec3(20.0f,20.0f,20.0f));// translate it down so it's at the center of the scene
+        model = glm::rotate(model,-0.785f,glm::vec3(0,0,1));
+        model = glm::scale(model, glm::vec3(1.0f,1.0f,1.0f));    // it's a bit too big for our scene, so scale it down
+        ourShader.setMat4("model", model);
+        Wand.Draw(ourShader);
+
+        //////////////////////////////////////////////////////////////////////////
         //CRTANJE SKYBOXA
 
         glDepthMask(GL_FALSE);
