@@ -159,6 +159,8 @@ int main() {
     // configure global opengl state
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
 
     // build and compile shaders
     // -------------------------
@@ -167,47 +169,47 @@ int main() {
 
     float skyBoxVertices[]=
             {
-            -1.0f,1.0f,-1.0f,
-            -1.0f,-1.0f,-1.0f,
-            1.0f,-1.0f,-1.0f,
-            1.0f,-1.0f,-1.0f,
-            1.0f,1.0f,-1.0f,
-            -1.0f,1.0f,-1.0f,
+                    -1.0f,1.0f,-1.0f,
+                    -1.0f,-1.0f,-1.0f,
+                    1.0f,-1.0f,-1.0f,
+                    1.0f,-1.0f,-1.0f,
+                    1.0f,1.0f,-1.0f,
+                    -1.0f,1.0f,-1.0f,
 
-            -1.0f,-1.0f,1.0f,
-            -1.0f,-1.0f,-1.0f,
-            -1.0f,1.0f,-1.0f,
-            -1.0f,1.0f,-1.0f,
-            -1.0f,1.0f,1.0f,
-            -1.0f,-1.0f,1.0f,
+                    -1.0f,-1.0f,1.0f,
+                    -1.0f,-1.0f,-1.0f,
+                    -1.0f,1.0f,-1.0f,
+                    -1.0f,1.0f,-1.0f,
+                    -1.0f,1.0f,1.0f,
+                    -1.0f,-1.0f,1.0f,
 
-            1.0f,-1.0f,-1.0f,
-            1.0f,-1.0f,1.0f,
-            1.0f,1.0f,1.0f,
-            1.0f,1.0f,1.0f,
-            1.0f,1.0f,-1.0f,
-            1.0f,-1.0f,-1.0f,
+                    1.0f,-1.0f,-1.0f,
+                    1.0f,-1.0f,1.0f,
+                    1.0f,1.0f,1.0f,
+                    1.0f,1.0f,1.0f,
+                    1.0f,1.0f,-1.0f,
+                    1.0f,-1.0f,-1.0f,
 
-            -1.0f,-1.0f,1.0f,
-            -1.0f,1.0f,1.0f,
-            1.0f,1.0f,1.0f,
-            1.0f,1.0f,1.0f,
-            1.0f,-1.0f,1.0f,
-            -1.0f,-1.0f,1.0f,
+                    -1.0f,-1.0f,1.0f,
+                    -1.0f,1.0f,1.0f,
+                    1.0f,1.0f,1.0f,
+                    1.0f,1.0f,1.0f,
+                    1.0f,-1.0f,1.0f,
+                    -1.0f,-1.0f,1.0f,
 
-            -1.0f,1.0f,-1.0f,
-            1.0f,1.0f,-1.0f,
-            1.0f,1.0f,1.0f,
-            1.0f,1.0f,1.0f,
-            -1.0f,1.0f,1.0f,
-            -1.0f,1.0f,-1.0f,
+                    -1.0f,1.0f,-1.0f,
+                    1.0f,1.0f,-1.0f,
+                    1.0f,1.0f,1.0f,
+                    1.0f,1.0f,1.0f,
+                    -1.0f,1.0f,1.0f,
+                    -1.0f,1.0f,-1.0f,
 
-            -1.0f,-1.0f,-1.0f,
-            -1.0f,-1.0f,1.0f,
-            1.0f,-1.0f,-1.0f,
-            1.0f,-1.0f,-1.0f,
-            -1.0f,-1.0f,1.0f,
-            1.0f,-1.0f,1.0f
+                    -1.0f,-1.0f,-1.0f,
+                    -1.0f,-1.0f,1.0f,
+                    1.0f,-1.0f,-1.0f,
+                    1.0f,-1.0f,-1.0f,
+                    -1.0f,-1.0f,1.0f,
+                    1.0f,-1.0f,1.0f
             };
 
     unsigned int sbVAO , sbVBO;
@@ -222,15 +224,15 @@ int main() {
 
     vector<std::string> faces
             {
-                FileSystem::getPath("resources/textures/Sky2_right1.png"),
-                FileSystem::getPath("resources/textures/Sky2_left2.png"),
-                FileSystem::getPath("resources/textures/Sky2_bottom4.png"),
-                FileSystem::getPath("resources/textures/Sky2_top3.png"),
-                FileSystem::getPath("resources/textures/Sky2_front5.png"),
-                FileSystem::getPath("resources/textures/Sky2_back6.png"),
+                    FileSystem::getPath("resources/textures/Sky2_right1.png"),
+                    FileSystem::getPath("resources/textures/Sky2_left2.png"),
+                    FileSystem::getPath("resources/textures/Sky2_bottom4.png"),
+                    FileSystem::getPath("resources/textures/Sky2_top3.png"),
+                    FileSystem::getPath("resources/textures/Sky2_front5.png"),
+                    FileSystem::getPath("resources/textures/Sky2_back6.png"),
             };
 
-   unsigned int cubemapTexture = loadCubemap(faces);
+    unsigned int cubemapTexture = loadCubemap(faces);
     // load models
     // -----------
     Model Grifin("resources/objects/Obejkti/Greif_C/Greif_C.obj");
@@ -238,6 +240,18 @@ int main() {
 
     Model Wand("resources/objects/Obejkti/Wand/Wandschmuck03_C.obj");
     Wand.SetShaderTextureNamePrefix("material.");
+
+    Model Cezar("resources/objects/Obejkti/Cezar/Caesar_C.obj");
+    Cezar.SetShaderTextureNamePrefix("material.");
+
+    Model Aspran("resources/objects/Obejkti/Aspran/AsparnLoewe_C.obj");
+    Aspran.SetShaderTextureNamePrefix("material.");
+
+    Model Polybios("resources/objects/Obejkti/Polubios/Polybios_C.obj");
+    Polybios.SetShaderTextureNamePrefix("material.");
+
+    Model Piano("resources/objects/Obejkti/Klavir/klavir.obj");
+    Piano.SetShaderTextureNamePrefix("material.");
 
     PointLight& pointLight = programState->pointLight;
     pointLight.position = glm::vec3(4.0f, 4.0, 0.0);
@@ -277,7 +291,7 @@ int main() {
 
         // don't forget to enable shader before setting uniforms
         ourShader.use();
-        pointLight.position = glm::vec3(4.0 , 4.0f, 4.0 );
+        pointLight.position = glm::vec3(-4.0 , 4.0f, -4.0 );
         ourShader.setVec3("pointLight.position", pointLight.position);
         ourShader.setVec3("pointLight.ambient", pointLight.ambient);
         ourShader.setVec3("pointLight.diffuse", pointLight.diffuse);
@@ -295,7 +309,7 @@ int main() {
         ourShader.setMat4("projection", projection);
         ourShader.setMat4("view", view);
 
-       // render the loaded model
+        // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model,
                                programState->backpackPosition); // translate it down so it's at the center of the scene
@@ -303,7 +317,7 @@ int main() {
         ourShader.setMat4("model", model);
         Grifin.Draw(ourShader);
 
-
+/*
         ////////////////////////////////////////////////////////////////////////////////////////
 
         model = glm::mat4(1.0f);
@@ -315,12 +329,48 @@ int main() {
         Wand.Draw(ourShader);
 
         //////////////////////////////////////////////////////////////////////////
-        //CRTANJE SKYBOXA
 
+        model = glm::mat4(1.0f);
+        model = glm::translate(model,
+                               glm::vec3(-20.0f,-20.0f,-20.0f));// translate it down so it's at the center of the scene
+        //model = glm::rotate(model,-0.785f,glm::vec3(0,0,1));
+        model = glm::scale(model, glm::vec3(1.0f,1.0f,1.0f));    // it's a bit too big for our scene, so scale it down
+        ourShader.setMat4("model", model);
+        Cezar.Draw(ourShader);
+
+        //////////////////////////////////////////////////////////////////////////
+        model = glm::mat4(1.0f);
+        model = glm::translate(model,
+                               glm::vec3(-20.0f,20.0f,20.0f));// translate it down so it's at the center of the scene
+        model = glm::rotate(model,-1.57f,glm::vec3(1,0,0));
+        model = glm::scale(model, glm::vec3(0.5f,0.5f,0.5f));    // it's a bit too big for our scene, so scale it down
+        ourShader.setMat4("model", model);
+        Aspran.Draw(ourShader);
+*/
+        //////////////////////////////////////////////////////////////////////////
+        model = glm::mat4(1.0f);
+        model = glm::translate(model,
+                               glm::vec3(20.0f,-20.0f,20.0f));// translate it down so it's at the center of the scene
+        //model = glm::rotate(model,-1.57f,glm::vec3(1,0,0));
+        model = glm::scale(model, glm::vec3(0.5f,0.5f,0.5f));    // it's a bit too big for our scene, so scale it down
+        ourShader.setMat4("model", model);
+        Polybios.Draw(ourShader);
+
+        ///////////////////////////////
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE_MINUS_DST_COLOR,GL_ONE_MINUS_DST_COLOR);
+        model = glm::mat4(1.0f);
+        model = glm::translate(model,
+                               programState->backpackPosition+glm::vec3(-10.0f,5.0f,0.0f));// translate it down so it's at the center of the scene
+        //model = glm::rotate(model,-1.57f,glm::vec3(1,0,0));
+        model = glm::scale(model, glm::vec3(0.5f,0.5f,0.5f));    // it's a bit too big for our scene, so scale it down
+        ourShader.setMat4("model", model);
+        Piano.Draw(ourShader);
+
+        glDisable(GL_BLEND);
+        /////////////////////////////////////////////////////////
         glDepthMask(GL_FALSE);
         glDepthFunc(GL_LEQUAL);
-
-
         skyBoxShader.use();
         skyBoxShader.setMat4("view",glm::mat4(glm::mat3(view)));
         skyBoxShader.setMat4("projection",projection);
@@ -329,10 +379,10 @@ int main() {
         glBindTexture(GL_TEXTURE_CUBE_MAP,cubemapTexture);
         glDrawArrays(GL_TRIANGLES,0,36);
         glBindVertexArray(0);
-
-
         glDepthMask(GL_TRUE);
         glDepthFunc(GL_LESS);
+
+
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
