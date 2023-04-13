@@ -250,7 +250,7 @@ int main() {
     Model Polybios("resources/objects/Obejkti/Polubios/Polybios_C.obj");
     Polybios.SetShaderTextureNamePrefix("material.");
 
-    Model Piano("resources/objects/Obejkti/Klavir/klavir.obj");
+    Model Piano("resources/objects/Obejkti/Piano/crystal piano.obj");
     Piano.SetShaderTextureNamePrefix("material.");
 
     PointLight& pointLight = programState->pointLight;
@@ -356,6 +356,7 @@ int main() {
         ourShader.setMat4("model", model);
         Polybios.Draw(ourShader);
 
+
         ///////////////////////////////
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE_MINUS_DST_COLOR,GL_ONE_MINUS_DST_COLOR);
@@ -369,6 +370,7 @@ int main() {
 
         glDisable(GL_BLEND);
         /////////////////////////////////////////////////////////
+       // glDisable(GL_CULL_FACE);
         glDepthMask(GL_FALSE);
         glDepthFunc(GL_LEQUAL);
         skyBoxShader.use();
@@ -381,7 +383,6 @@ int main() {
         glBindVertexArray(0);
         glDepthMask(GL_TRUE);
         glDepthFunc(GL_LESS);
-
 
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
