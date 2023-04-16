@@ -328,57 +328,60 @@ int main() {
         // render the loaded model
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model,
-                               programState->backpackPosition); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(1.0f,1.0f,1.0f));    // it's a bit too big for our scene, so scale it down
+                               glm::vec3(5.0f,-5.0f+ -sin(currentFrame)*0.2,10.0f)+glm::vec3(2.5f,2.5f,-2.5f)); // translate it down so it's at the center of the scene
+        model = glm::scale(model, glm::vec3(0.3f,0.3f,0.3f));    // it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
         Grifin.Draw(ourShader);
 
-/*
+
         ////////////////////////////////////////////////////////////////////////////////////////
 
-        model = glm::mat4(1.0f);
-        model = glm::translate(model,
-                               glm::vec3(20.0f,20.0f,20.0f));// translate it down so it's at the center of the scene
-        model = glm::rotate(model,-0.785f,glm::vec3(0,0,1));
-        model = glm::scale(model, glm::vec3(1.0f,1.0f,1.0f));    // it's a bit too big for our scene, so scale it down
-        ourShader.setMat4("model", model);
-        Wand.Draw(ourShader);
 
-        //////////////////////////////////////////////////////////////////////////
 
         model = glm::mat4(1.0f);
         model = glm::translate(model,
-                               glm::vec3(-20.0f,-20.0f,-20.0f));// translate it down so it's at the center of the scene
-        //model = glm::rotate(model,-0.785f,glm::vec3(0,0,1));
-        model = glm::scale(model, glm::vec3(1.0f,1.0f,1.0f));    // it's a bit too big for our scene, so scale it down
+                               glm::vec3(5.0f,0.0f+ sin(currentFrame+0.2)*0.2,20.0f));// translate it down so it's at the center of the scene
+        model = glm::rotate(model,-1.0f,glm::vec3(0,1,0));
+        model = glm::scale(model, glm::vec3(0.5f,0.5f,0.5f));    // it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
         Cezar.Draw(ourShader);
 
         //////////////////////////////////////////////////////////////////////////
         model = glm::mat4(1.0f);
         model = glm::translate(model,
-                               glm::vec3(-20.0f,20.0f,20.0f));// translate it down so it's at the center of the scene
+                               glm::vec3(-5.0f,10.0f+ sin(currentFrame+0.4)*0.2,10.0f));// translate it down so it's at the center of the scene
         model = glm::rotate(model,-1.57f,glm::vec3(1,0,0));
-        model = glm::scale(model, glm::vec3(0.5f,0.5f,0.5f));    // it's a bit too big for our scene, so scale it down
+        model = glm::scale(model, glm::vec3(0.1f,0.1f,0.1f));    // it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
         Aspran.Draw(ourShader);
-*/
+
         //////////////////////////////////////////////////////////////////////////
         model = glm::mat4(1.0f);
         model = glm::translate(model,
-                               glm::vec3(20.0f,-20.0f,20.0f));// translate it down so it's at the center of the scene
-        //model = glm::rotate(model,-1.57f,glm::vec3(1,0,0));
+                               glm::vec3(5.0f,5.0f+ -sin(currentFrame+0.6)*0.2,10.0f));// translate it down so, it's at the center of the scene
+        model = glm::rotate(model,1.0f,glm::vec3(0,1,0));
         model = glm::scale(model, glm::vec3(0.5f,0.5f,0.5f));    // it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
         Polybios.Draw(ourShader);
 
 
         ///////////////////////////////
+        model = glm::mat4(1.0f);
+        model = glm::translate(model,
+                               glm::vec3(5.0f,5.0f+ sin(currentFrame+0.8)*0.2,10.0f)+glm::vec3(0.0f,2.0f,-15.5f));// translate it down so it's at the center of the scene
+        model = glm::rotate(model,-3.14f,glm::vec3(0,0,1));
+        model = glm::rotate(model,-2.8f,glm::vec3(0,1,0));
+        model = glm::rotate(model,-2.0f,glm::vec3(1,0,0));
+        model = glm::scale(model, glm::vec3(0.4f,0.4f,0.4f));    // it's a bit too big for our scene, so scale it down
+        ourShader.setMat4("model", model);
+        Wand.Draw(ourShader);
+
+        //////////////////////////////////////////////////////////////////////////
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE_MINUS_DST_COLOR,GL_ONE_MINUS_DST_COLOR);
         model = glm::mat4(1.0f);
         model = glm::translate(model,
-                               programState->backpackPosition+glm::vec3(-10.0f,5.0f,0.0f));// translate it down so it's at the center of the scene
+                               glm::vec3(5.0f,5.0f-sin(currentFrame+1)*0.2,10.0f)+glm::vec3(1.5f,2.0f,-7.5f));// translate it down so it's at the center of the scene
         //model = glm::rotate(model,-1.57f,glm::vec3(1,0,0));
         model = glm::scale(model, glm::vec3(0.5f,0.5f,0.5f));    // it's a bit too big for our scene, so scale it down
         ourShader.setMat4("model", model);
