@@ -1,6 +1,9 @@
 #version 330 core
 out vec4 FragColor;
 
+
+#define DIR_C 3
+
 struct PointLight {
     vec3 position;
 
@@ -33,12 +36,12 @@ in vec2 TexCoords;
 in vec3 Normal;
 in vec3 FragPos;
 
-uniform DirectLight dirLight;
+uniform DirectLight dirLight[DIR_C];
 uniform Material material;
 
 uniform vec3 viewPosition;
 // calculates the color when using a point light.
-vec3 CalcPointLight(DirectLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
+vec3 CalcLight(DirectLight light, vec3 normal, vec3 fragPos, vec3 viewDir)
 {
     //Point light->vec3 lightDir = normalize(light.position - fragPos);
 
@@ -67,6 +70,10 @@ void main()
 {
     vec3 normal = normalize(Normal);
     vec3 viewDir = normalize(viewPosition - FragPos);
-    vec3 result = CalcPointLight(dirLight, normal, FragPos, viewDir);
+    vec3 result= CalcLight(dirLight[0], normal, FragPos, viewDir);
+    for(int i =1;i<DIR_C;i++)
+    {
+        result += CalcLight(dirLight[i], normal, FragPos, viewDir);
+    }
     FragColor = vec4(result, 1.0);
 }

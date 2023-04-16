@@ -280,17 +280,38 @@ int main() {
         glClearColor(programState->clearColor.r, programState->clearColor.g, programState->clearColor.b, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        pointLight.ambient = glm::vec3(0.1, 0.1, 0.1);
-        pointLight.diffuse = glm::vec3(1* sin(currentFrame), 1*sin(currentFrame), 1*sin(currentFrame));
-        pointLight.specular = glm::vec3(1.0, 1.0, 1.0);
+
 
         // don't forget to enable shader before setting uniforms
         ourShader.use();
         pointLight.direction = glm::vec3(-4.0 , 4.0f, -4.0 );
-        ourShader.setVec3("dirLight.direction", pointLight.direction);
-        ourShader.setVec3("dirLight.ambient", pointLight.ambient);
-        ourShader.setVec3("dirLight.diffuse", pointLight.diffuse);
-        ourShader.setVec3("dirlight.specular", pointLight.specular);
+        pointLight.ambient = glm::vec3(0.1, 0.1, 0.1);
+        pointLight.diffuse = glm::vec3(0.5f* sin(currentFrame), 0.5f*sin(currentFrame), 0.5f*sin(currentFrame));
+        pointLight.specular = glm::vec3(0.5f, 0.5f, 0.5f);
+        ourShader.setVec3("dirLight[0].direction", pointLight.direction);
+        ourShader.setVec3("dirLight[0].ambient", pointLight.ambient);
+        ourShader.setVec3("dirLight[0].diffuse", pointLight.diffuse);
+        ourShader.setVec3("dirlight[0].specular", pointLight.specular);
+
+        pointLight.direction = glm::vec3(4.0 , -4.0f, 4.0 );
+        pointLight.ambient = glm::vec3(0.1, 0.1, 0.1);
+        pointLight.diffuse = glm::vec3(0.5f* sin(currentFrame+1.6), 0.5f*sin(currentFrame+1.6), 0.5f*sin(currentFrame+1.6));
+        pointLight.specular = glm::vec3(0.5f, 0.5f, 0.5f);
+        ourShader.setVec3("dirLight[1].direction", pointLight.direction);
+        ourShader.setVec3("dirLight[1].ambient", pointLight.ambient);
+        ourShader.setVec3("dirLight[1].diffuse", pointLight.diffuse);
+        ourShader.setVec3("dirlight[1].specular", pointLight.specular);
+
+
+        pointLight.direction = glm::vec3(-4.0 , -4.0f, -4.0 );
+        pointLight.ambient = glm::vec3(0.1, 0.1, 0.1);
+        pointLight.diffuse = glm::vec3(0.5f* cos(currentFrame+2), 0.5f*cos(currentFrame+2), 0.5f*cos(currentFrame+2));
+        pointLight.specular = glm::vec3(0.5f, 0.5f, 0.5f);
+        ourShader.setVec3("dirLight[2].direction", pointLight.direction);
+        ourShader.setVec3("dirLight[2].ambient", pointLight.ambient);
+        ourShader.setVec3("dirLight[2].diffuse", pointLight.diffuse);
+        ourShader.setVec3("dirlight[2].specular", pointLight.specular);
+
         /*ourShader.setFloat("pointLight.constant", pointLight.constant);
         ourShader.setFloat("pointLight.linear", pointLight.linear);
         ourShader.setFloat("pointLight.quadratic", pointLight.quadratic);*/
