@@ -41,15 +41,11 @@ bool firstMouse = true;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
-struct PointLight {
-    glm::vec3 position;
+struct DirectLight {
+    glm::vec3 direction;
     glm::vec3 ambient;
     glm::vec3 diffuse;
     glm::vec3 specular;
-
-    float constant;
-    float linear;
-    float quadratic;
 };
 
 struct ProgramState {
@@ -59,7 +55,7 @@ struct ProgramState {
     bool CameraMouseMovementUpdateEnabled = true;
     glm::vec3 backpackPosition = glm::vec3(0.0f);
     float backpackScale = 1.0f;
-    PointLight pointLight;
+    DirectLight pointLight;
     ProgramState()
             : camera(glm::vec3(0.0f, 0.0f, 3.0f)) {}
 
@@ -253,15 +249,11 @@ int main() {
     Model Piano("resources/objects/Obejkti/Piano/crystal piano.obj");
     Piano.SetShaderTextureNamePrefix("material.");
 
-    PointLight& pointLight = programState->pointLight;
-    pointLight.position = glm::vec3(4.0f, 4.0, 0.0);
+    DirectLight& pointLight = programState->pointLight;
+    pointLight.direction = glm::vec3(4.0f, 4.0, 0.0);
     pointLight.ambient = glm::vec3(0.1, 0.1, 0.1);
     pointLight.diffuse = glm::vec3(1, 1, 1);
     pointLight.specular = glm::vec3(1.0, 1.0, 1.0);
-
-    pointLight.constant = 1.0f;
-    pointLight.linear = 0.0f;
-    pointLight.quadratic = 0.0f;
 
     skyBoxShader.use();
     skyBoxShader.setInt("skybox",0);
@@ -288,17 +280,20 @@ int main() {
         glClearColor(programState->clearColor.r, programState->clearColor.g, programState->clearColor.b, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        pointLight.ambient = glm::vec3(0.1, 0.1, 0.1);
+        pointLight.diffuse = glm::vec3(1* sin(currentFrame), 1*sin(currentFrame), 1*sin(currentFrame));
+        pointLight.specular = glm::vec3(1.0, 1.0, 1.0);
 
         // don't forget to enable shader before setting uniforms
         ourShader.use();
-        pointLight.position = glm::vec3(-4.0 , 4.0f, -4.0 );
-        ourShader.setVec3("pointLight.position", pointLight.position);
-        ourShader.setVec3("pointLight.ambient", pointLight.ambient);
-        ourShader.setVec3("pointLight.diffuse", pointLight.diffuse);
-        ourShader.setVec3("pointLight.specular", pointLight.specular);
-        ourShader.setFloat("pointLight.constant", pointLight.constant);
+        pointLight.direction = glm::vec3(-4.0 , 4.0f, -4.0 );
+        ourShader.setVec3("dirLight.direction", pointLight.direction);
+        ourShader.setVec3("dirLight.ambient", pointLight.ambient);
+        ourShader.setVec3("dirLight.diffuse", pointLight.diffuse);
+        ourShader.setVec3("dirlight.specular", pointLight.specular);
+        /*ourShader.setFloat("pointLight.constant", pointLight.constant);
         ourShader.setFloat("pointLight.linear", pointLight.linear);
-        ourShader.setFloat("pointLight.quadratic", pointLight.quadratic);
+        ourShader.setFloat("pointLight.quadratic", pointLight.quadratic);*/
         ourShader.setVec3("viewPosition", programState->camera.Position);
         ourShader.setFloat("material.shininess", 32.0f);
         // view/projection transformations
